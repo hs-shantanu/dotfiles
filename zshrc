@@ -368,6 +368,6 @@ export AWS_REGION=us-east-1
 alias aws-ecr-login="aws --profile hsft-moby ecr get-login-password --region $AWS_REGION | podman login --username AWS --password-stdin $AWS_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com"
 
 ## Bring moby up or down
-PODMAN_COMPOSE='/Users/shantanu/Library/Python/3.9/bin/podman-compose'
-alias moby-up="$PODMAN_COMPOSE -f ~/src/helpshift/moby/container/moby_arm64.yml up -d"
-alias moby-down="$PODMAN_COMPOSE -f ~/src/helpshift/moby/container/moby_arm64.yml down"
+alias podman-compose='/Users/shantanu/Library/Python/3.9/bin/podman-compose'
+alias moby-up="podman-compose -f ~/src/helpshift/moby/container/moby_arm64.yml up -d"
+alias moby-down="podman-compose -f ~/src/helpshift/moby/container/moby_arm64.yml down"
