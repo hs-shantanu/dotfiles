@@ -1,5 +1,6 @@
+
 # -*- mode: sh -*-
-# Time-stamp: <2020-08-30 12:17:02 shantanu>
+# Time-stamp: <2023-04-07 10:35:02 shantanu>
 #            _
 #           | |
 #    _______| |__  _ __ ___
@@ -371,3 +372,4 @@ alias aws-ecr-login="aws --profile hsft-moby ecr get-login-password --region $AW
 alias podman-compose='/Users/shantanu/Library/Python/3.9/bin/podman-compose'
 alias moby-up="podman-compose -f ~/src/helpshift/moby/container/moby_arm64.yml up -d"
 alias moby-down="podman-compose -f ~/src/helpshift/moby/container/moby_arm64.yml down"
+alias moby-status="podman ps -a --format 'table {{.ID}} {{.Names}} {{.Status}}'"
