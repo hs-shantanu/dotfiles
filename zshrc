@@ -1,6 +1,6 @@
 
 # -*- mode: sh -*-
-# Time-stamp: <2023-04-07 10:35:02 shantanu>
+# Time-stamp: <2023-04-07 10:38:02 shantanu>
 #            _
 #           | |
 #    _______| |__  _ __ ___
@@ -313,7 +313,7 @@ function gerrit_create_branch() {
     git checkout -b $1
 
     # Point the local branch to the remote origin
-    gsed -i.bak '\|feature/branch-testing|,+3d' .git/config
+    gsed -i.bak "\|$1|,+3d" .git/config
     cat <<EOF >> .git/config
 [branch "$1"]
 	remote = origin
