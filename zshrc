@@ -1,6 +1,6 @@
 
 # -*- mode: sh -*-
-# Time-stamp: <2023-04-07 10:38:02 shantanu>
+# Time-stamp: <2023-04-12 07:22:40 shantanu>
 #            _
 #           | |
 #    _______| |__  _ __ ___
@@ -276,6 +276,7 @@ alias ll='ls -Fl'
 
 alias repl='lein -U do clean, deps, compile, trampoline repl :headless'
 alias qrepl='lein trampoline repl :headless'
+alias trepl='lein with-profile dev,test,cljtools trampoline repl :headless'
 
 function rfcc() {
     $HOME/bin/rfc "$(git symbolic-ref --short HEAD)"
@@ -329,6 +330,7 @@ EOF
 PATH=/opt/homebrew/bin:$PATH
 
 MOBY_ENV=localhost
+TEST_LOGS=true
 LEIN_JVM_OPTS=-Dhttps.protocols=TLSv1.2
 [ -f ~/.credentials ] && source ~/.credentials
 
@@ -366,7 +368,7 @@ fi
 ## AWS ECR container
 export AWS_ACCOUNT=664404405793
 export AWS_REGION=us-east-1
-alias aws-ecr-login="aws --profile hsft-moby ecr get-login-password --region $AWS_REGION | podman login --username AWS --password-stdin $AWS_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com"
+alias aws-ecr-login="aws --profile hsft ecr get-login-password --region $AWS_REGION | podman login --username AWS --password-stdin $AWS_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com"
 
 ## Bring moby up or down
 alias podman-compose='/Users/shantanu/Library/Python/3.9/bin/podman-compose'
