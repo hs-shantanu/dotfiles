@@ -1,6 +1,6 @@
 
 # -*- mode: sh -*-
-# Time-stamp: <2023-04-12 07:22:40 shantanu>
+# Time-stamp: <2023-05-17 15:56:21 shantanu>
 #            _
 #           | |
 #    _______| |__  _ __ ___
@@ -163,6 +163,9 @@ alias psf='ps f -U $USER'
 alias sl=ls
 alias dirs='dirs -v'
 
+# Print alias expansion before execution
+preexec(){ [ $1 != $2 ] && print -r "> $2" }
+
 # cd to a directory and then do an ls
 # unless there are lots of files in the directory
 function lcd() {
@@ -271,7 +274,7 @@ setopt ALLEXPORT
 ################################################################################
 # Aliases and Command Functions
 
-alias ls='ls -G'
+CLICOLOR=true
 alias ll='ls -Fl'
 
 alias repl='lein -U do clean, deps, compile, trampoline repl :headless'
