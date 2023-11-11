@@ -158,9 +158,6 @@ alias psf='ps f -U $USER'
 alias sl=ls
 alias dirs='dirs -v'
 
-# Print alias expansion before execution
-preexec(){ [ $1 != $2 ] && print -r "> $2" }
-
 # cd to a directory and then do an ls
 # unless there are lots of files in the directory
 function lcd() {
@@ -261,14 +258,16 @@ eval RESET='%{$reset_color%}'
 eval "$(starship init zsh)"
 
 ################################################################################
-# Aliases and Command Functions
-
+# Specific aliases and Command Functions
+setopt ALLEXPORT
 CLICOLOR=true
 alias ll='ls -Fl'
 
-alias repl='lein -U do clean, deps, compile, trampoline repl :headless'
-alias qrepl='lein trampoline repl :headless'
-alias trepl='lein with-profile dev,test,cljtools trampoline repl :headless'
+alias cleanrepl='lein -U do clean, deps, compile, trampoline repl :headless'
+alias repl='lein trampoline repl :headless'
+alias testrepl='lein with-profile dev,test,cljtools trampoline repl :headless'
+
+alias awsjump='ssh jump-nv2.p.helpshift.com'
 
 function rfcc() {
     $HOME/bin/rfc "$(git symbolic-ref --short HEAD)"
@@ -319,7 +318,7 @@ EOF
 }
 
 ################################################################################
-PATH=/opt/homebrew/bin:$PATH
+# Work related definitions and aliases
 
 MOBY_ENV=localhost
 TEST_LOGS=true
@@ -345,17 +344,7 @@ function nvm_setup {
 
 ## emacsclient
 EMACSCLIENT="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
-alias ecn='$EMACSCLIENT -n -s $HOME/.emacs.d/server -a /usr/local/bin/vim'
-
-## Rust
-[[ -f $HOME/.cargo/env ]] && source $HOME/.cargo/env
-
-## Golang
-if [[ -d /usr/local/go/bin ]]; then
-    PATH=$PATH:/usr/local/go/bin
-    GOPATH=$HOME/src/golang
-    GOROOT=/usr/local/go
-fi
+alias ecn='$EMACSCLIENT -n -s $HOME/.emacs.d/server -a /usr/bin/vim'
 
 ## AWS ECR container
 export AWS_ACCOUNT=664404405793
@@ -367,3 +356,5 @@ alias podman-compose='/Users/shantanu/Library/Python/3.9/bin/podman-compose'
 alias moby-up="podman-compose -f ~/src/helpshift/moby/container/moby_arm64.yml up -d"
 alias moby-down="podman-compose -f ~/src/helpshift/moby/container/moby_arm64.yml down"
 alias moby-status="podman ps -a --format 'table {{.ID}} {{.Names}} {{.Status}}'"
+
+export GPG_TTY=\$(tty)
