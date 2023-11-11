@@ -1,6 +1,5 @@
-
 # -*- mode: sh -*-
-# Time-stamp: <2023-05-17 15:56:21 shantanu>
+# Time-stamp: <2023-11-11 14:28:07 shantanu>
 #            _
 #           | |
 #    _______| |__  _ __ ___
@@ -8,13 +7,6 @@
 #  _ / /\__ \ | | | | | (__
 # (_)___|___/_| |_|_|  \___|
 #
-
-################################################################################
-# if running in emacs, don't do anything (apart from setting a simple prompt)
-if [ -n "$INSIDE_EMACS" ]; then
-    export PS1="» "
-    return
-fi
 
 ################################################################################
 # Include /etc/profile
@@ -71,6 +63,9 @@ typeset -U path PATH
 # Default editor and pager
 PAGER='less'
 EDITOR='vi'
+
+PATH="$HOME/bin":/opt/homebrew/bin:$PATH
+[ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin":$PATH
 
 ################################################################################
 # Completion
@@ -262,14 +257,8 @@ for color in RED GREEN YELLOW BLUE MAGENTA CYAN BLACK WHITE; do
 done
 eval RESET='%{$reset_color%}'
 
-PS1="$PR_GREEN%B%m%b$PR_WHITE:%(!.$PR_RED.$PR_YELLOW)%~ » $RESET"
-RPS1="%(!.$PR_RED.$PR_YELLOW)[%D{%d/%m %H:%M:%S}]$RESET"
-setopt ALLEXPORT
-
-# Include user's bin directory in PATH
-[ -d "$HOME/bin" ] && PATH="$HOME/bin":$PATH
-[ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin":$PATH
-
+# Starship prompt
+eval "$(starship init zsh)"
 
 ################################################################################
 # Aliases and Command Functions
